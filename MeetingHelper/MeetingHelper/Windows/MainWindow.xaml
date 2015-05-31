@@ -1,0 +1,22 @@
+﻿<Window x:Class="MeetingHelper.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <TabControl>
+        <TabItem Header="Image">
+            <Image  Name="ChosenImage"
+                MouseDown="ImageClicked"
+                Source="../Images/Default.jpg"/>
+        </TabItem>
+        <TabItem Header="Timer" Name="TimerTab">
+            <ScrollViewer>
+                <StackPanel>
+                    <RadioButton GroupName="TimerMode" Name="Stopwatch" Checked="TimerModeChanged">Stopwatch</RadioButton>
+                    <RadioButton GroupName="TimerMode" Name="Countdown" Checked="TimerModeChanged">Countdown</RadioButton>
+                    <Label Name="Display" Grid.Column="1" Grid.Row="0" MouseUp="StartOrPauseTimer" BorderThickness="1" BorderBrush="Black" FontSize="48" HorizontalAlignment="Center" Margin="0,10,0,0" Foreground="#FFF90000" FontWeight="Bold">00:00:00.00</Label>
+                    <Button Name="ResetButton" DockPanel.Dock="Top" Click="ResetTimer" IsEnabled="False" Margin="100,30,100,0" FontSize="24" >Reset</Button>
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+    </TabControl>
+</Window>
