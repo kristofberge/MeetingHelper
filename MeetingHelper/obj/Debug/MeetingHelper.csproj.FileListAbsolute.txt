@@ -1,0 +1,1 @@
+C:\prog\Git\MeetingHelper\MeetingHelper\bin\Debug\MeetingHelper.exe.config
