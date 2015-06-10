@@ -24,5 +24,10 @@ namespace MeetingHelper.Windows
         {
             InitializeComponent();
         }
+
+        private void ChosenImage_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }
