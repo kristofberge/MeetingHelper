@@ -18,7 +18,7 @@ namespace MeetingHelper.Helpers
         }
 
         private ImageSource _chosenImageSource;
-        public ImageSource ImageSource
+        public ImageSource ChosenImageSource
         {
             get
             {
@@ -34,6 +34,17 @@ namespace MeetingHelper.Helpers
         public virtual ImageSource GetDefaultImageSource()
         {
             return new ImageSourceConverter().ConvertFromString(@"..\Images\Default.jpg") as ImageSource;
+        }
+
+        public void RefreshImageSourceFromUserChoice()
+        {
+            this.ChosenImageSource = GetNewImageFromDialog();
+        }
+
+        protected virtual ImageSource GetNewImageFromDialog()
+        {
+            ImageSource newImage = null;
+            return newImage;
         }
     }
 }

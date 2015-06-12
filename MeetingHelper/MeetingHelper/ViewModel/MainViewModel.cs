@@ -48,7 +48,7 @@ namespace MeetingHelper.ViewModel
         private ImageSource _chosenImageSource;
         public ImageSource ChosenImageSource
         {
-            get { return ImageHelper.ImageSource; }
+            get { return ImageHelper.ChosenImageSource; }
             set { _chosenImageSource = value; }
         }
 

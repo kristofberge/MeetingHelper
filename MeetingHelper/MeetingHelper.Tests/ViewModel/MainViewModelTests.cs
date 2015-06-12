@@ -13,9 +13,6 @@ namespace MeetingHelper.ViewModel.Tests
         [TestMethod]
         public void SetDefaulImageWhenNoneIsChosen()
         {
-            Mock<ImageSourceConverter> converterMock = new Mock<ImageSourceConverter>();
-            converterMock.Setup(c => c.ConvertFromString(It.IsAny<string>())).Returns<object>(null);
-
             Mock<ImageSourceHelper> imageHelperMock = new Mock<ImageSourceHelper>();
             imageHelperMock.Setup(x => x.GetDefaultImageSource()).Returns(new Object() as ImageSource);
 
@@ -27,16 +24,14 @@ namespace MeetingHelper.ViewModel.Tests
         }
 
         [TestMethod]
-        public void SetDefaulImageWhenNoneIsChosen2()
+        public void ImageUnchangedIfUserCancelsDialog()
         {
-            Mock<ImageSourceConverter> converterMock = new Mock<ImageSourceConverter>();
-            converterMock.Setup(c => c.ConvertFromString(It.IsAny<string>())).Returns(new object() as ImageSource);
+            Mock<ImageSourceHelper> imageHelperMock = new Mock<ImageSourceHelper>();
 
-            ImageSourceHelper imageHelper = new ImageSourceHelper();
-            imageHelper.Converter = converterMock.Object as ImageSourceConverter;
+            
 
-            var ImageSourceProperty = imageHelper.ImageSource;
-            converterMock.Verify(c => c.ConvertFromString(It.IsAny<string>()), Times.Exactly(1));
+            bool res2 = test1 == test2;
+            bool res = test1.Equals(test2);
         }
     }
 }
