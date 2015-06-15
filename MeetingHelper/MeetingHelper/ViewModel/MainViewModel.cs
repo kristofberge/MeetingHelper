@@ -1,4 +1,5 @@
 using GalaSoft.MvvmLight;
+using MeetingHelper.Command;
 using MeetingHelper.Helpers;
 using Microsoft.Win32;
 using System;
@@ -28,8 +29,9 @@ namespace MeetingHelper.ViewModel
         /// </summary>
         /// 
 
-        OpenFileDialog openImageDialog;
-        public ImageSourceHelper ImageHelper;
+        
+        public ImageHelper ImageHelper;
+        public RelayCommand ImageClicked;
 
         public MainViewModel()
         {
@@ -41,39 +43,25 @@ namespace MeetingHelper.ViewModel
             ////{
             ////    // Code runs "for real"
             ////}
-            ImageHelper = new ImageSourceHelper();
+            ImageHelper = new ImageHelper();
+            ImageClicked = new RelayCommand(f => { ImageClickedCmd(); }, f => true);
         }
-
 
         private ImageSource _chosenImageSource;
         public ImageSource ChosenImageSource
         {
-            get { return ImageHelper.ImageSource; }
+            get { return ImageHelper.ChosenImage; }
             set { _chosenImageSource = value; }
         }
 
-        
-
-        public void ImageClicked(object sender, EventArgs args)
+        public void ImageClickedCmd()
         {
-            if (GetReponseFromUser() == true)
-            {
-                try
-                {
-                    ChosenImageSource = new ImageSourceConverter().ConvertFromString(openImageDialog.FileName) as ImageSource;
-                }
-                catch (NullReferenceException)
-                {
-                    MessageBox.Show("Incorrect filetype.\nPlease Select an image file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
+            
         }
 
         private bool? GetReponseFromUser()
         {
-            openImageDialog = new OpenFileDialog();
-            openImageDialog.Filter = "Image files (*.jpg, *.jpeg, *.bmp, *.gif, *.png)|*.jpg;*.jpeg;*.bmp;*.gif;*.png|"
-                + "All files (*.*)|*.*";
+            
 
             return openImageDialog.ShowDialog();
         }

@@ -11,32 +11,32 @@ namespace MeetingHelper.ViewModel.Tests
     public class MainViewModelTests
     {
         [TestMethod]
-        public void SetDefaulImageWhenNoneIsChosen()
+        public void SetDefaulImage_WhenNoneIsChosen()
         {
-            Mock<ImageSourceConverter> converterMock = new Mock<ImageSourceConverter>();
-            converterMock.Setup(c => c.ConvertFromString(It.IsAny<string>())).Returns<object>(null);
-
-            Mock<ImageSourceHelper> imageHelperMock = new Mock<ImageSourceHelper>();
+            Mock<ImageHelper> imageHelperMock = new Mock<ImageHelper>();
             imageHelperMock.Setup(x => x.GetDefaultImageSource()).Returns(new Object() as ImageSource);
 
             MainViewModel mainViewModel = new MainViewModel();
-            mainViewModel.ImageHelper = imageHelperMock.Object as ImageSourceHelper;
+            mainViewModel.ImageHelper = imageHelperMock.Object as ImageHelper;
 
             var ImageSourceProperty = mainViewModel.ChosenImageSource;
             imageHelperMock.Verify(x => x.GetDefaultImageSource(), Times.Exactly(1));
         }
 
         [TestMethod]
-        public void SetDefaulImageWhenNoneIsChosen2()
+        public void DoNotSetChosenImage_WhenUserCancelsDialog()
         {
-            Mock<ImageSourceConverter> converterMock = new Mock<ImageSourceConverter>();
-            converterMock.Setup(c => c.ConvertFromString(It.IsAny<string>())).Returns(new object() as ImageSource);
+            Mock<ImageHelper> imageHelperMock = new Mock<ImageHelper>();
+            imageHelperMock.Setup(x => x.UserMadeCorrectChoice()).Returns(false);
+            imageHelperMock.SetupSet(x => x.ChosenImage = It.IsAny<ImageSource>()).Verifiable();
 
-            ImageSourceHelper imageHelper = new ImageSourceHelper();
-            imageHelper.Converter = converterMock.Object as ImageSourceConverter;
+            MainViewModel mainViewModel = new MainViewModel();
+            mainViewModel.ImageHelper = imageHelperMock.Object as ImageHelper;
 
-            var ImageSourceProperty = imageHelper.ImageSource;
-            converterMock.Verify(c => c.ConvertFromString(It.IsAny<string>()), Times.Exactly(1));
+            var imageHelper = imageHelperMock.Object as ImageHelper;
+            imageHelper.RefreshChosenImageFromUserChoice();
+
+            imageHelperMock.VerifySet(x => x.ChosenImage = It.IsAny<ImageSource>(), Times.Never());
         }
     }
 }

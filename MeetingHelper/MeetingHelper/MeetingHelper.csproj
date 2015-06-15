@@ -68,7 +68,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Command\ImageClicked.cs" />
+    <Compile Include="Command\RelayCommand.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="ViewModel\Interface\IMainViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
