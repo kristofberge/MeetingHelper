@@ -68,8 +68,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Command\ImageClicked.cs" />
+    <Compile Include="Command\RelayCommand.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="TimeKeepers\Countdown.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="TimeKeepers\Events\TimeUpdatedEventArgs.cs" />
+    <Compile Include="TimeKeepers\Stopwatch.cs" />
+    <Compile Include="TimeKeepers\TimeKeeper.cs" />
     <Compile Include="ViewModel\Interface\IMainViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -115,6 +120,13 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Default.jpg" />
+    <Resource Include="Images\Pause.png" />
+    <Resource Include="Images\PauseIcon.png" />
+    <Resource Include="Images\Play.png" />
+    <Resource Include="Images\PlayIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

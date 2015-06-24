@@ -1,8 +1,11 @@
 using GalaSoft.MvvmLight;
+using MeetingHelper.Command;
 using MeetingHelper.Helpers;
 using Microsoft.Win32;
 using System;
+using System.ComponentModel;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -28,8 +31,9 @@ namespace MeetingHelper.ViewModel
         /// </summary>
         /// 
 
-        OpenFileDialog openImageDialog;
-        public ImageSourceHelper ImageHelper;
+        
+        public ImageHelper ImageHelper;
+        public RelayCommand ImageClicked { get; private set; }
 
         public MainViewModel()
         {
@@ -41,43 +45,33 @@ namespace MeetingHelper.ViewModel
             ////{
             ////    // Code runs "for real"
             ////}
-            ImageHelper = new ImageSourceHelper();
+            ImageHelper = new ImageHelper();
+            ImageClicked = new RelayCommand(f => { ImageClickedCmd(); }, f => true);
         }
 
-
-        private ImageSource _chosenImageSource;
-        public ImageSource ChosenImageSource
+        private ImageSource _chosenImage;
+        public ImageSource ChosenImage
         {
-            get { return ImageHelper.ChosenImageSource; }
-            set { _chosenImageSource = value; }
-        }
-
-        
-
-        public void ImageClicked(object sender, EventArgs args)
-        {
-            if (GetReponseFromUser() == true)
+            get
             {
-                try
+                if (_chosenImage == null)
+                    _chosenImage = ImageHelper.ChosenImage;
+                return _chosenImage;
+            }
+            set
+            {
+                if (_chosenImage != value)
                 {
-                    ChosenImageSource = new ImageSourceConverter().ConvertFromString(openImageDialog.FileName) as ImageSource;
-                }
-                catch (NullReferenceException)
-                {
-                    MessageBox.Show("Incorrect filetype.\nPlease Select an image file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    _chosenImage = value;
+                    RaisePropertyChanged();
                 }
             }
         }
 
-        private bool? GetReponseFromUser()
+        private void ImageClickedCmd()
         {
-            openImageDialog = new OpenFileDialog();
-            openImageDialog.Filter = "Image files (*.jpg, *.jpeg, *.bmp, *.gif, *.png)|*.jpg;*.jpeg;*.bmp;*.gif;*.png|"
-                + "All files (*.*)|*.*";
-
-            return openImageDialog.ShowDialog();
+            ImageHelper.RefreshChosenImageFromUserChoice();
+            ChosenImage = ImageHelper.ChosenImage;
         }
-        
-
     }
 }
