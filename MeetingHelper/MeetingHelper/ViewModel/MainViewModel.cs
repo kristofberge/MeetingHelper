@@ -33,7 +33,9 @@ namespace MeetingHelper.ViewModel
 
         
         public ImageHelper ImageHelper;
+        public Timer Timer;
         public RelayCommand ImageClicked { get; private set; }
+        public RelayCommand TimerClicked { get; private set; }
 
         public MainViewModel()
         {
@@ -46,7 +48,9 @@ namespace MeetingHelper.ViewModel
             ////    // Code runs "for real"
             ////}
             ImageHelper = new ImageHelper();
+            Timer = new Timer();
             ImageClicked = new RelayCommand(f => { ImageClickedCmd(); }, f => true);
+            TimerClicked = new RelayCommand(f => { TimerClickedCmd(); }, f => true);
         }
 
         private ImageSource _chosenImage;
@@ -72,6 +76,11 @@ namespace MeetingHelper.ViewModel
         {
             ImageHelper.RefreshChosenImageFromUserChoice();
             ChosenImage = ImageHelper.ChosenImage;
+        }
+
+        private void TimerClickedCmd()
+        {
+            Timer.TimerClicked();
         }
     }
 }

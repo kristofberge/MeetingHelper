@@ -24,7 +24,14 @@
                 <StackPanel>
                     <RadioButton GroupName="TimerMode" Name="Stopwatch">Stopwatch</RadioButton>
                     <RadioButton GroupName="TimerMode" Name="Countdown">Countdown</RadioButton>
-                    <Label Name="Display" Grid.Column="1" Grid.Row="0" BorderThickness="1" BorderBrush="Black" FontSize="48" HorizontalAlignment="Center" Margin="0,10,0,0" Foreground="#FFF90000" FontWeight="Bold">00:00:00.00</Label>
+                    <Label Name="Display" Grid.Column="1" Grid.Row="0" BorderThickness="1" BorderBrush="Black" FontSize="48" HorizontalAlignment="Center" Margin="0,10,0,0" Foreground="#FFF90000" FontWeight="Bold">
+                        00:00:00.00
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDown">
+                                <i:InvokeCommandAction Command="{Binding TimerClicked}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Label>
                     <Button Name="ResetButton" DockPanel.Dock="Top" IsEnabled="False" Margin="100,30,100,0" FontSize="24" >Reset</Button>
                 </StackPanel>
             </ScrollViewer>

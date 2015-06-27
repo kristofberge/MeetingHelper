@@ -11,7 +11,6 @@ namespace MeetingHelper.ViewModel.Tests
     [TestClass]
     public class MainViewModelTests
     {
-
         [TestMethod]
         public void SetDefaulImage_WhenNoneIsChosen()
         {
