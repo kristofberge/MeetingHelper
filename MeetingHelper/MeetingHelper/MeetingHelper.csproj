@@ -71,6 +71,7 @@
     <Compile Include="Command\RelayCommand.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="Helpers\TimeHelper.cs" />
     <Compile Include="ViewModel\Interface\IMainViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -124,9 +125,7 @@
     <Resource Include="Images\Play.png" />
     <Resource Include="Images\PlayIcon.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="TimeKeepers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

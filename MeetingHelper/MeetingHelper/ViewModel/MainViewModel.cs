@@ -1,6 +1,7 @@
 using GalaSoft.MvvmLight;
 using MeetingHelper.Command;
 using MeetingHelper.Helpers;
+using MeetingHelper.Helpers.TimeKeerpers;
 using Microsoft.Win32;
 using System;
 using System.ComponentModel;
@@ -33,7 +34,7 @@ namespace MeetingHelper.ViewModel
 
         
         public ImageHelper ImageHelper;
-        public Timer Timer;
+        public TimeHelper Timer;
         public RelayCommand ImageClicked { get; private set; }
         public RelayCommand TimerClicked { get; private set; }
 
@@ -48,7 +49,7 @@ namespace MeetingHelper.ViewModel
             ////    // Code runs "for real"
             ////}
             ImageHelper = new ImageHelper();
-            Timer = new Timer();
+            Timer = new TimeHelper();
             ImageClicked = new RelayCommand(f => { ImageClickedCmd(); }, f => true);
             TimerClicked = new RelayCommand(f => { TimerClickedCmd(); }, f => true);
         }

@@ -1,17 +1,18 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Moq.Protected;
+using NUnit.Framework;
 using System.Windows.Media;
 using MeetingHelper.Helpers;
 using System.ComponentModel;
+using MeetingHelper.Helpers.TimeKeerpers;
 
 namespace MeetingHelper.ViewModel.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class MainViewModelTests
     {
-        [TestMethod]
+        [Test]
         public void SetDefaulImage_WhenNoneIsChosen()
         {
             Mock<ImageHelper> imageHelperMock = new Mock<ImageHelper>() { CallBase = true };
@@ -24,7 +25,7 @@ namespace MeetingHelper.ViewModel.Tests
             imageHelperMock.Verify(x => x.GetDefaultImageSource(), Times.Exactly(1));
         }
 
-        [TestMethod]
+        [Test]
         public void DoNotSetChosenImage_WhenUserCancelsDialog()
         {
             Mock<ImageHelper> imageHelperMock = new Mock<ImageHelper>();
