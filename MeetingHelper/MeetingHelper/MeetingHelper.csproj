@@ -71,7 +71,7 @@
     <Compile Include="Command\RelayCommand.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
-    <Compile Include="Helpers\TimeHelper.cs" />
+    <Compile Include="Helpers\TimeHelpers\TimeHelper.cs" />
     <Compile Include="ViewModel\Interface\IMainViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
