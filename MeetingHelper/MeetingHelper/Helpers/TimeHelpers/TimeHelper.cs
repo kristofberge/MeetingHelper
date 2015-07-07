@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace MeetingHelper.Helpers.TimeKeerpers
 {
@@ -17,6 +18,19 @@ namespace MeetingHelper.Helpers.TimeKeerpers
             PAUSED
         }
 
+        protected DispatcherTimer Timer;
+        protected DateTimeOffset TimeStarted;
+        protected TimeSpan TimeToDisplay;
+
+        public TimeHelper()
+        {
+            Timer = new DispatcherTimer();
+            Timer.Interval = new TimeSpan(0, 0, 0, 4);
+            Timer.Tick += UpdateTimeToDisplay;
+            TimeToDisplay = new TimeSpan();
+        }
+
+        #region Controls
         public void TimerClicked()
         {
             switch (this.CurrentStatus)
@@ -37,6 +51,7 @@ namespace MeetingHelper.Helpers.TimeKeerpers
 
         private void Start()
         {
+            Timer.Start();
             this.CurrentStatus = TimerStatus.RUNNING;
         }
 
@@ -54,5 +69,15 @@ namespace MeetingHelper.Helpers.TimeKeerpers
         {
             this.CurrentStatus = TimerStatus.STOPPED;
         }
+        #endregion
+
+        private void UpdateTimeToDisplay(object sender, EventArgs args)
+        {
+            TimeToDisplay = CalculateTimeToBeDisplayed();
+            OnTimeUpdated();
+        }
+
+        protected abstract TimeSpan CalculateTimeToBeDisplayed();
+        protected virtual void OnTimeUpdated() { }
     }
 }

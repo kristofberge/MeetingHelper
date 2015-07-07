@@ -2,6 +2,7 @@
 using MeetingHelper.Helpers.TimeKeerpers;
 
 using NUnit.Framework;
+using System.Threading;
 
 namespace MeetingHelper.Tests.Helpers
 {
@@ -34,15 +35,20 @@ namespace MeetingHelper.Tests.Helpers
             Assert.AreEqual(timeHelper.CurrentStatus, TimeHelper.TimerStatus.STOPPED);
         }
 
-        public void TimerClickedWithStatusStoppedOrPaused_TimerRunning(TimeHelper.TimerStatus status)
+        [TestCase(TimeHelper.TimerStatus.STOPPED, true)]
+        [TestCase(TimeHelper.TimerStatus.PAUSED, true)]
+        [TestCase(TimeHelper.TimerStatus.RUNNING, false)]
+        public void TimerClicked_TimerRunningOrPausing(TimeHelper.TimerStatus status, bool timerRunningAfterClick)
         {
             TestableTimeHelper timeHelper = new TestableTimeHelper();
             timeHelper.SetCurrentStatus(status);
 
             timeHelper.TimerClicked();
-            timeHelper.Get
+            TimeSpan earlier = timeHelper.GetCurrentTime();
+            Thread.Sleep(10);
+            TimeSpan later = timeHelper.GetCurrentTime();
 
-
+            Assert.AreEqual(later > earlier, timerRunningAfterClick);
         }
     }
 
@@ -54,9 +60,9 @@ namespace MeetingHelper.Tests.Helpers
             base.CurrentStatus = status;
         }
 
-        public void GetCurrentDisplaytime()
+        public TimeSpan GetCurrentTime()
         {
-
+            return new TimeSpan();
         }
     }
 }
