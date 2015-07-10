@@ -1,5 +1,5 @@
 ﻿using System;
-using MeetingHelper.Helpers.TimeKeerpers;
+using MeetingHelper.Helpers.Time;
 
 using NUnit.Framework;
 using System.Threading;

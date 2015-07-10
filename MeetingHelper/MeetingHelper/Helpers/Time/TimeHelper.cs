@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 
-namespace MeetingHelper.Helpers.TimeKeerpers
+namespace MeetingHelper.Helpers.Time
 {
     public class TimeHelper
     {

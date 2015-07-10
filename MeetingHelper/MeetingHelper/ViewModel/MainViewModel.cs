@@ -1,7 +1,7 @@
 using GalaSoft.MvvmLight;
 using MeetingHelper.Command;
 using MeetingHelper.Helpers;
-using MeetingHelper.Helpers.TimeKeerpers;
+using MeetingHelper.Helpers.Time;
 using Microsoft.Win32;
 using System;
 using System.ComponentModel;

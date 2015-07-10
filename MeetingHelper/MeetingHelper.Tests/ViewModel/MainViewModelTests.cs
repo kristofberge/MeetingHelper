@@ -5,7 +5,7 @@ using NUnit.Framework;
 using System.Windows.Media;
 using MeetingHelper.Helpers;
 using System.ComponentModel;
-using MeetingHelper.Helpers.TimeKeerpers;
+using MeetingHelper.Helpers.Time;
 
 namespace MeetingHelper.ViewModel.Tests
 {
