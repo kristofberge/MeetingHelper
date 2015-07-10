@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace MeetingHelper.Helpers.Time
 {
-    class Stopwatch
+    public class Stopwatch : TimeHelper
     {
+        protected override TimeSpan CalculateTimeToBeDisplayed()
+        {
+            
+        }
     }
 }

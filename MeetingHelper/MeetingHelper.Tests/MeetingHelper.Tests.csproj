@@ -77,7 +77,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Helpers\TimeHelperTests.cs" />
+    <Compile Include="Helpers\Time\TimeHelperTests.cs" />
     <Compile Include="ViewModel\MainViewModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
