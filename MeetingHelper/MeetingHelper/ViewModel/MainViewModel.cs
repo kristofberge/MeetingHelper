@@ -49,7 +49,7 @@ namespace MeetingHelper.ViewModel
             ////    // Code runs "for real"
             ////}
             ImageHelper = new ImageHelper();
-            Timer = new TimeHelper();
+            Timer = new Stopwatch();
             ImageClicked = new RelayCommand(f => { ImageClickedCmd(); }, f => true);
             TimerClicked = new RelayCommand(f => { TimerClickedCmd(); }, f => true);
         }

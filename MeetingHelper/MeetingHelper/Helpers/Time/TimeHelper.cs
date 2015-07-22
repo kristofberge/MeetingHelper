@@ -7,7 +7,7 @@ using System.Windows.Threading;
 
 namespace MeetingHelper.Helpers.Time
 {
-    public class TimeHelper
+    public abstract class TimeHelper
     {
         public virtual TimerStatus CurrentStatus { get; protected set; }
 
@@ -21,13 +21,21 @@ namespace MeetingHelper.Helpers.Time
         protected DispatcherTimer Timer;
         protected DateTimeOffset TimeStarted;
         protected TimeSpan TimeToDisplay;
+        protected TimeSpan TimeSpanRunningBeforePause;
 
         public TimeHelper()
+        {
+            SetUpTimer();
+            TimeToDisplay = new TimeSpan();
+            TimeStarted = new DateTimeOffset();
+            TimeSpanRunningBeforePause = new TimeSpan();
+        }
+
+        private void SetUpTimer()
         {
             Timer = new DispatcherTimer();
             Timer.Interval = new TimeSpan(0, 0, 0, 4);
             Timer.Tick += UpdateTimeToDisplay;
-            TimeToDisplay = new TimeSpan();
         }
 
         #region Controls
@@ -51,6 +59,7 @@ namespace MeetingHelper.Helpers.Time
 
         private void Start()
         {
+            TimeStarted = DateTimeOffset.Now;
             Timer.Start();
             this.CurrentStatus = TimerStatus.RUNNING;
         }

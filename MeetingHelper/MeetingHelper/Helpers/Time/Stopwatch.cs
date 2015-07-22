@@ -10,7 +10,7 @@ namespace MeetingHelper.Helpers.Time
     {
         protected override TimeSpan CalculateTimeToBeDisplayed()
         {
-            
+            return DateTimeOffset.Now - TimeStarted - base.TimeSpanRunningBeforePause;
         }
     }
 }

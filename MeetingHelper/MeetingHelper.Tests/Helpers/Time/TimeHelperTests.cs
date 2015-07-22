@@ -3,6 +3,7 @@ using MeetingHelper.Helpers.Time;
 
 using NUnit.Framework;
 using System.Threading;
+using MeetingHelper.Tests.Testables;
 
 namespace MeetingHelper.Tests.Helpers
 {
@@ -33,36 +34,6 @@ namespace MeetingHelper.Tests.Helpers
             timeHelper.Reset();
 
             Assert.AreEqual(timeHelper.CurrentStatus, TimeHelper.TimerStatus.STOPPED);
-        }
-
-        [TestCase(TimeHelper.TimerStatus.STOPPED, true)]
-        [TestCase(TimeHelper.TimerStatus.PAUSED, true)]
-        [TestCase(TimeHelper.TimerStatus.RUNNING, false)]
-        public void TimerClicked_TimerRunningOrPausing(TimeHelper.TimerStatus status, bool timerRunningAfterClick)
-        {
-            TestableTimeHelper timeHelper = new TestableTimeHelper();
-            timeHelper.SetCurrentStatus(status);
-
-            timeHelper.TimerClicked();
-            TimeSpan earlier = timeHelper.GetCurrentTime();
-            Thread.Sleep(10);
-            TimeSpan later = timeHelper.GetCurrentTime();
-
-            Assert.AreEqual(later > earlier, timerRunningAfterClick);
-        }
-    }
-
-
-    internal class TestableTimeHelper : TimeHelper
-    {
-        public void SetCurrentStatus(TimeHelper.TimerStatus status)
-        {
-            base.CurrentStatus = status;
-        }
-
-        public TimeSpan GetCurrentTime()
-        {
-            return new TimeSpan();
         }
     }
 }
