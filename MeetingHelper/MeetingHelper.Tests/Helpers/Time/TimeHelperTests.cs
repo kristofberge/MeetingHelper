@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Threading;
+
 using MeetingHelper.Helpers.Time;
 
 using NUnit.Framework;
-using System.Threading;
+
 using MeetingHelper.Tests.Testables;
 
-namespace MeetingHelper.Tests.Helpers
+namespace MeetingHelper.Tests.Helpers.Time
 {
     [TestFixture]
     public class TimeHelperTests
@@ -34,6 +36,19 @@ namespace MeetingHelper.Tests.Helpers
             timeHelper.Reset();
 
             Assert.AreEqual(timeHelper.CurrentStatus, TimeHelper.TimerStatus.STOPPED);
+        }
+
+        [TestCase(TimeHelper.TimerStatus.STOPPED, true)]
+        [TestCase(TimeHelper.TimerStatus.PAUSED, true)]
+        [TestCase(TimeHelper.TimerStatus.RUNNING, false)]
+        public void TimerClicked_TimerRunningOrPaused(TimeHelper.TimerStatus status, bool timerRunningAfterClick)
+        {
+            var timeHelper = new TestableTimeHelper();
+            timeHelper.SetCurrentStatus(status);
+
+            timeHelper.TimerClicked();
+
+            Assert.AreEqual(timeHelper.IsTimerEnabled, timerRunningAfterClick);
         }
     }
 }

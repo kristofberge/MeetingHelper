@@ -15,6 +15,8 @@ namespace MeetingHelper.Helpers
     {
         public ImageSourceConverter Converter;
 
+        protected bool? userCancelledDialog;
+
         private OpenFileDialog _chooseImageDialog;
 
         public ImageHelper()
@@ -43,7 +45,8 @@ namespace MeetingHelper.Helpers
 
         public void RefreshChosenImageFromUserChoice()
         {
-            if (UserMadeCorrectChoice() == true)
+            UserChoosesImage();
+            if (userCancelledDialog == false)
             {
                 try
                 {
@@ -51,15 +54,15 @@ namespace MeetingHelper.Helpers
                 }
                 catch (NotSupportedException)
                 {
-                    MessageBox.Show("Incorrect filetype.\nPlease Select an image file.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    throw;
                 }
             }
         }
 
-        protected virtual bool UserMadeCorrectChoice()
+        protected void UserChoosesImage()
         {
             SetupChooseImageDialog();
-            return _chooseImageDialog.ShowDialog() == true;
+            userCancelledDialog = !_chooseImageDialog.ShowDialog();
         }
 
         private void SetupChooseImageDialog()

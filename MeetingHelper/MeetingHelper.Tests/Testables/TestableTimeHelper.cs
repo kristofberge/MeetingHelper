@@ -18,5 +18,10 @@ namespace MeetingHelper.Tests.Testables
         {
             throw new NotImplementedException();
         }
+
+        public bool IsTimerEnabled
+        {
+            get { return Timer.IsEnabled; }
+        }
     }
 }

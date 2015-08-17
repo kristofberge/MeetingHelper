@@ -73,6 +73,8 @@ namespace MeetingHelper.ViewModel
             }
         }
 
+
+
         private void ImageClickedCmd()
         {
             ImageHelper.RefreshChosenImageFromUserChoice();

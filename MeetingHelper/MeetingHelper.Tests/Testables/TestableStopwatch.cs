@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MeetingHelper.Tests.Testables
 {
-    public class TestableStopwatch : Stopwatch
+    public class TestableStopwatch : Stopwatch, ITestableTimeHelper
     {
         public TimeSpan GetCurrentTime()
         {

@@ -20,6 +20,7 @@ namespace MeetingHelper.Helpers.Time
 
         protected DispatcherTimer Timer;
         protected DateTimeOffset TimeStarted;
+        protected DateTimeOffset TimePaused;
         protected TimeSpan TimeToDisplay;
         protected TimeSpan TimeSpanRunningBeforePause;
 
@@ -28,6 +29,7 @@ namespace MeetingHelper.Helpers.Time
             SetUpTimer();
             TimeToDisplay = new TimeSpan();
             TimeStarted = new DateTimeOffset();
+            TimePaused = new DateTimeOffset();
             TimeSpanRunningBeforePause = new TimeSpan();
         }
 
@@ -66,11 +68,13 @@ namespace MeetingHelper.Helpers.Time
 
         private void Pause()
         {
+            Timer.Stop();
             this.CurrentStatus = TimerStatus.PAUSED;
         }
 
         private void Resume()
         {
+            Timer.Start();
             this.CurrentStatus = TimerStatus.RUNNING;
         }
 

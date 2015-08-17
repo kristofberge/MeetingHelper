@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Helpers\Time\TimeHelperTests.cs" />
     <Compile Include="Helpers\Time\StopwatchTests.cs" />
+    <Compile Include="Helpers\ImageHelperTests.cs" />
     <Compile Include="Testables\ITestableTimeHelper.cs" />
     <Compile Include="Testables\TestableStopwatch.cs" />
     <Compile Include="Testables\TestableTimeHelper.cs" />
