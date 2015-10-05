@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MeetingHelper.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,16 +8,9 @@ using System.Windows.Threading;
 
 namespace MeetingHelper.Helpers.Time
 {
-    public abstract class TimeHelper
+    public abstract class TimeHelper : ITimeHelper
     {
-        public virtual TimerStatus CurrentStatus { get; protected set; }
-
-        public enum TimerStatus
-        {
-            STOPPED,
-            RUNNING,
-            PAUSED
-        }
+        public virtual Common.TimerStatus CurrentStatus { get; protected set; }
 
         protected DispatcherTimer Timer;
         protected DateTimeOffset TimeStarted;
@@ -45,13 +39,13 @@ namespace MeetingHelper.Helpers.Time
         {
             switch (this.CurrentStatus)
             {
-                case TimerStatus.STOPPED:
+                case Common.TimerStatus.STOPPED:
                     Start();
                     break;
-                case TimerStatus.RUNNING:
+                case Common.TimerStatus.RUNNING:
                     Pause();
                     break;
-                case TimerStatus.PAUSED:
+                case Common.TimerStatus.PAUSED:
                     Resume();
                     break;
                 default:
@@ -63,24 +57,24 @@ namespace MeetingHelper.Helpers.Time
         {
             TimeStarted = DateTimeOffset.Now;
             Timer.Start();
-            this.CurrentStatus = TimerStatus.RUNNING;
+            this.CurrentStatus = Common.TimerStatus.RUNNING;
         }
 
         private void Pause()
         {
             Timer.Stop();
-            this.CurrentStatus = TimerStatus.PAUSED;
+            this.CurrentStatus = Common.TimerStatus.PAUSED;
         }
 
         private void Resume()
         {
             Timer.Start();
-            this.CurrentStatus = TimerStatus.RUNNING;
+            this.CurrentStatus = Common.TimerStatus.RUNNING;
         }
 
         public void Reset()
         {
-            this.CurrentStatus = TimerStatus.STOPPED;
+            this.CurrentStatus = Common.TimerStatus.STOPPED;
         }
         #endregion
 

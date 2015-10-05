@@ -80,7 +80,6 @@
     <Compile Include="Helpers\Time\TimeHelperTests.cs" />
     <Compile Include="Helpers\Time\StopwatchTests.cs" />
     <Compile Include="Helpers\ImageHelperTests.cs" />
-    <Compile Include="Testables\ITestableTimeHelper.cs" />
     <Compile Include="Testables\TestableStopwatch.cs" />
     <Compile Include="Testables\TestableTimeHelper.cs" />
     <Compile Include="ViewModel\MainViewModelTests.cs" />
@@ -94,6 +93,9 @@
       <Project>{34d7113a-57b1-4436-81b7-b6e136fcff9a}</Project>
       <Name>MeetingHelper</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Files\NotAnImage.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

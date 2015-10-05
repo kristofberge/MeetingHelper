@@ -11,18 +11,11 @@ using System.Windows.Media.Imaging;
 
 namespace MeetingHelper.Helpers
 {
-    public class ImageHelper
+    public class ImageHelper : IImageHelper
     {
-        public ImageSourceConverter Converter;
-
         protected bool? userCancelledDialog;
 
         private OpenFileDialog _chooseImageDialog;
-
-        public ImageHelper()
-        {
-            Converter = new ImageSourceConverter();
-        }
 
         private ImageSource _chosenImage;
         public virtual ImageSource ChosenImage
@@ -45,12 +38,11 @@ namespace MeetingHelper.Helpers
 
         public void RefreshChosenImageFromUserChoice()
         {
-            UserChoosesImage();
-            if (userCancelledDialog == false)
+            if (UserChoosesImage() == false)
             {
                 try
                 {
-                    ChosenImage = new BitmapImage(new Uri(_chooseImageDialog.FileName));
+                    ChosenImage = new BitmapImage(GetUriFromDialog());
                 }
                 catch (NotSupportedException)
                 {
@@ -59,10 +51,20 @@ namespace MeetingHelper.Helpers
             }
         }
 
-        protected void UserChoosesImage()
+        protected virtual bool? UserChoosesImage()
         {
             SetupChooseImageDialog();
-            userCancelledDialog = !_chooseImageDialog.ShowDialog();
+            return ShowDialog();
+        }
+
+        protected virtual Uri GetUriFromDialog()
+        {
+            return new Uri(_chooseImageDialog.FileName);
+        }
+
+        protected virtual bool? ShowDialog()
+        {
+            return !_chooseImageDialog.ShowDialog();
         }
 
         private void SetupChooseImageDialog()

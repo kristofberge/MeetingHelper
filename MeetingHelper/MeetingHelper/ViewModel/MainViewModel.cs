@@ -2,6 +2,7 @@ using GalaSoft.MvvmLight;
 using MeetingHelper.Command;
 using MeetingHelper.Helpers;
 using MeetingHelper.Helpers.Time;
+using MeetingHelper.Shared;
 using Microsoft.Win32;
 using System;
 using System.ComponentModel;
@@ -33,23 +34,15 @@ namespace MeetingHelper.ViewModel
         /// 
 
         
-        public ImageHelper ImageHelper;
-        public TimeHelper Timer;
+        public IImageHelper ImageHelper;
+        public ITimeHelper Timer;
         public RelayCommand ImageClicked { get; private set; }
         public RelayCommand TimerClicked { get; private set; }
 
         public MainViewModel()
         {
-            ////if (IsInDesignMode)
-            ////{
-            ////    // Code runs in Blend --> create design time data.
-            ////}
-            ////else
-            ////{
-            ////    // Code runs "for real"
-            ////}
-            ImageHelper = new ImageHelper();
-            Timer = new Stopwatch();
+            ImageHelper = MyFactory.GetImageHelper(); ;
+            Timer = MyFactory.GetTimeHelper(Common.TimeHelperType.STOPWATCH);
             ImageClicked = new RelayCommand(f => { ImageClickedCmd(); }, f => true);
             TimerClicked = new RelayCommand(f => { TimerClickedCmd(); }, f => true);
         }
@@ -73,13 +66,13 @@ namespace MeetingHelper.ViewModel
             }
         }
 
-        private void ImageClickedCmd()
+        protected virtual void ImageClickedCmd()
         {
             ImageHelper.RefreshChosenImageFromUserChoice();
             ChosenImage = ImageHelper.ChosenImage;
         }
 
-        private void TimerClickedCmd()
+        protected virtual void TimerClickedCmd()
         {
             Timer.TimerClicked();
         }

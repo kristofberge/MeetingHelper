@@ -69,10 +69,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Command\RelayCommand.cs" />
-    <Compile Include="Constants.cs" />
+    <Compile Include="Shared\Common.cs" />
+    <Compile Include="Helpers\Interface\IImageHelper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="Helpers\Time\ITimeHelper.cs" />
     <Compile Include="Helpers\Time\Stopwatch.cs" />
     <Compile Include="Helpers\Time\TimeHelper.cs" />
+    <Compile Include="Shared\MyFactory.cs" />
     <Compile Include="ViewModel\Interface\IMainViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />

@@ -1,4 +1,5 @@
 ﻿using MeetingHelper.Helpers.Time;
+using MeetingHelper.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace MeetingHelper.Tests.Testables
 {
-    public class TestableTimeHelper : TimeHelper, ITestableTimeHelper
+    internal class TestableTimeHelper : TimeHelper
     {
-        public void SetCurrentStatus(TimeHelper.TimerStatus status)
+        public void SetCurrentStatus(Common.TimerStatus status)
         {
             base.CurrentStatus = status;
         }
@@ -19,9 +20,9 @@ namespace MeetingHelper.Tests.Testables
             throw new NotImplementedException();
         }
 
-        public bool IsTimerEnabled
+        public bool CallIsTimerEnabled
         {
             get { return Timer.IsEnabled; }
-        }
+        } 
     }
 }

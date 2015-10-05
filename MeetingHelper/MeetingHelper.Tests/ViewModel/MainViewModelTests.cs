@@ -1,4 +1,6 @@
 ﻿using System;
+
+
 using Moq;
 using Moq.Protected;
 using NUnit.Framework;
@@ -15,30 +17,33 @@ namespace MeetingHelper.ViewModel.Tests
         [Test]
         public void SetDefaulImage_WhenNoneIsChosen()
         {
-            Mock<ImageHelper> imageHelperMock = new Mock<ImageHelper>() { CallBase = true };
-            imageHelperMock.Setup(x => x.GetDefaultImageSource()).Returns(new Object() as ImageSource);
+            //Arrange
+            Mock<ImageHelper> imageHelper = new Mock<ImageHelper>() { CallBase = true };
+            imageHelper.Setup(x => x.GetDefaultImageSource()).Returns(new Object() as ImageSource);
 
             MainViewModel mainViewModel = new MainViewModel();
-            mainViewModel.ImageHelper = imageHelperMock.Object as ImageHelper;
+            mainViewModel.ImageHelper = imageHelper.Object as ImageHelper;
 
+            //Act
             var ImageSourceProperty = mainViewModel.ChosenImage;
-            imageHelperMock.Verify(x => x.GetDefaultImageSource(), Times.Exactly(1));
+
+            //Assert
+            imageHelper.Verify(x => x.GetDefaultImageSource(), Times.Exactly(1));
         }
 
         [Test]
         public void DoNotSetChosenImage_WhenUserCancelsDialog()
         {
-            Mock<ImageHelper> imageHelperMock = new Mock<ImageHelper>();
-            imageHelperMock.Protected().Setup<bool>("UserMadeCorrectChoice").Returns(false);
-            imageHelperMock.SetupSet(x => x.ChosenImage = It.IsAny<ImageSource>()).Verifiable();
+            //Arrange
+            Mock<ImageHelper> imageHelper = new Mock<ImageHelper>();
+            imageHelper.Protected().Setup<bool>("ShowDialog").Returns(false);
+            imageHelper.SetupSet(x => x.ChosenImage = It.IsAny<ImageSource>()).Verifiable();
 
-            MainViewModel mainViewModel = new MainViewModel();
-            mainViewModel.ImageHelper = imageHelperMock.Object as ImageHelper;
+            //Act
+            imageHelper.Object.RefreshChosenImageFromUserChoice();
 
-            var imageHelper = imageHelperMock.Object as ImageHelper;
-            imageHelper.RefreshChosenImageFromUserChoice();
-
-            imageHelperMock.VerifySet(x => x.ChosenImage = It.IsAny<ImageSource>(), Times.Never());
+            //Assert
+            imageHelper.VerifySet(x => x.ChosenImage = It.IsAny<ImageSource>(), Times.Never());
         }
     }
 }
