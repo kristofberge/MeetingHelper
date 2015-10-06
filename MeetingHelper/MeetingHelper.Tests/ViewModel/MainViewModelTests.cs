@@ -8,29 +8,13 @@ using System.Windows.Media;
 using MeetingHelper.Helpers;
 using System.ComponentModel;
 using MeetingHelper.Helpers.Time;
+using MeetingHelper.Helpers.Image;
 
 namespace MeetingHelper.ViewModel.Tests
 {
     [TestFixture]
     public class MainViewModelTests
     {
-        [Test]
-        public void SetDefaulImage_WhenNoneIsChosen()
-        {
-            //Arrange
-            Mock<ImageHelper> imageHelper = new Mock<ImageHelper>() { CallBase = true };
-            imageHelper.Setup(x => x.GetDefaultImageSource()).Returns(new Object() as ImageSource);
-
-            MainViewModel mainViewModel = new MainViewModel();
-            mainViewModel.ImageHelper = imageHelper.Object as ImageHelper;
-
-            //Act
-            var ImageSourceProperty = mainViewModel.ChosenImage;
-
-            //Assert
-            imageHelper.Verify(x => x.GetDefaultImageSource(), Times.Exactly(1));
-        }
-
         [Test]
         public void DoNotSetChosenImage_WhenUserCancelsDialog()
         {

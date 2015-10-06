@@ -68,10 +68,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Command\RelayCommand.cs" />
+    <Compile Include="Exceptions\NonImageFileChosenException.cs" />
+    <Compile Include="Helpers\Interface\IDialogHandler.cs" />
+    <Compile Include="Shared\RelayCommand.cs" />
+    <Compile Include="Exceptions\UserCancelledDialogException.cs" />
+    <Compile Include="Helpers\Image\DialogHandler.cs" />
     <Compile Include="Shared\Common.cs" />
     <Compile Include="Helpers\Interface\IImageHelper.cs" />
-    <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="Helpers\Image\ImageHelper.cs" />
     <Compile Include="Helpers\Time\ITimeHelper.cs" />
     <Compile Include="Helpers\Time\Stopwatch.cs" />
     <Compile Include="Helpers\Time\TimeHelper.cs" />

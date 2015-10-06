@@ -1,4 +1,5 @@
 ﻿using MeetingHelper.Helpers;
+using MeetingHelper.Helpers.Image;
 using MeetingHelper.Helpers.Time;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace MeetingHelper.Shared
     {
         public static IImageHelper GetImageHelper()
         {
-            return new ImageHelper();
+            return new ImageHelper(new DialogHandler());
         }
 
         public static ITimeHelper GetTimeHelper(Common.TimeHelperType type)

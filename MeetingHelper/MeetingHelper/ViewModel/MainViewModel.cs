@@ -1,6 +1,6 @@
 using GalaSoft.MvvmLight;
-using MeetingHelper.Command;
 using MeetingHelper.Helpers;
+using MeetingHelper.Helpers.Image;
 using MeetingHelper.Helpers.Time;
 using MeetingHelper.Shared;
 using Microsoft.Win32;

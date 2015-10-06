@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace MeetingHelper.Command
+namespace MeetingHelper.Shared
 {
     public class RelayCommand : ICommand
     {

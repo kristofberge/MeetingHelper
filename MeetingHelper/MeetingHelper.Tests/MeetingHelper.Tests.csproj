@@ -79,7 +79,7 @@
   <ItemGroup>
     <Compile Include="Helpers\Time\TimeHelperTests.cs" />
     <Compile Include="Helpers\Time\StopwatchTests.cs" />
-    <Compile Include="Helpers\ImageHelperTests.cs" />
+    <Compile Include="Helpers\Image\ImageHelperTests.cs" />
     <Compile Include="Testables\TestableStopwatch.cs" />
     <Compile Include="Testables\TestableTimeHelper.cs" />
     <Compile Include="ViewModel\MainViewModelTests.cs" />
@@ -95,7 +95,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Files\NotAnImage.txt" />
+    <Content Include="Files\NotAnImage.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\Test.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
