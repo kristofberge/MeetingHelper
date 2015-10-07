@@ -18,26 +18,27 @@ namespace MeetingHelper.Helpers.Time
         protected TimeSpan TimeToDisplay;
         protected TimeSpan TimeSpanRunningBeforePause;
 
-        public TimeHelper()
+        #region Constructors
+        public TimeHelper(DispatcherTimer timer)
         {
-            SetUpTimer();
+            Timer = timer;
+            Timer.Tick += UpdateTimeToDisplay;
+            SetUpTimeVariables();
+        }
+
+        private void SetUpTimeVariables()
+        {
             TimeToDisplay = new TimeSpan();
             TimeStarted = new DateTimeOffset();
             TimePaused = new DateTimeOffset();
             TimeSpanRunningBeforePause = new TimeSpan();
         }
-
-        private void SetUpTimer()
-        {
-            Timer = new DispatcherTimer();
-            Timer.Interval = new TimeSpan(0, 0, 0, 4);
-            Timer.Tick += UpdateTimeToDisplay;
-        }
+        #endregion
 
         #region Controls
         public void TimerClicked()
         {
-            switch (this.CurrentStatus)
+            switch (CurrentStatus)
             {
                 case Common.TimerStatus.STOPPED:
                     Start();
@@ -57,28 +58,28 @@ namespace MeetingHelper.Helpers.Time
         {
             TimeStarted = DateTimeOffset.Now;
             Timer.Start();
-            this.CurrentStatus = Common.TimerStatus.RUNNING;
+            CurrentStatus = Common.TimerStatus.RUNNING;
         }
 
         private void Pause()
         {
             Timer.Stop();
-            this.CurrentStatus = Common.TimerStatus.PAUSED;
+            CurrentStatus = Common.TimerStatus.PAUSED;
         }
 
         private void Resume()
         {
             Timer.Start();
-            this.CurrentStatus = Common.TimerStatus.RUNNING;
+            CurrentStatus = Common.TimerStatus.RUNNING;
         }
 
         public void Reset()
         {
-            this.CurrentStatus = Common.TimerStatus.STOPPED;
+            CurrentStatus = Common.TimerStatus.STOPPED;
         }
         #endregion
 
-        private void UpdateTimeToDisplay(object sender, EventArgs args)
+        protected virtual void UpdateTimeToDisplay(object sender, EventArgs args)
         {
             TimeToDisplay = CalculateTimeToBeDisplayed();
             OnTimeUpdated();

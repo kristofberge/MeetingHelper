@@ -15,19 +15,6 @@ namespace MeetingHelper.ViewModel.Tests
     [TestFixture]
     public class MainViewModelTests
     {
-        [Test]
-        public void DoNotSetChosenImage_WhenUserCancelsDialog()
-        {
-            //Arrange
-            Mock<ImageHelper> imageHelper = new Mock<ImageHelper>();
-            imageHelper.Protected().Setup<bool>("ShowDialog").Returns(false);
-            imageHelper.SetupSet(x => x.ChosenImage = It.IsAny<ImageSource>()).Verifiable();
-
-            //Act
-            imageHelper.Object.RefreshChosenImageFromUserChoice();
-
-            //Assert
-            imageHelper.VerifySet(x => x.ChosenImage = It.IsAny<ImageSource>(), Times.Never());
-        }
+        
     }
 }

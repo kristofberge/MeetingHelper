@@ -20,6 +20,7 @@ namespace MeetingHelper.Helpers.Image
             else
                 throw new UserCancelledDialogException();
         }
+
         protected virtual bool? UserChoosesImage()
         {
             SetupChooseImageDialog();

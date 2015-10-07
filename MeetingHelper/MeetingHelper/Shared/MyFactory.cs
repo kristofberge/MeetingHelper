@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace MeetingHelper.Shared
 {
@@ -22,10 +23,17 @@ namespace MeetingHelper.Shared
             switch (type)
             {
                 case Common.TimeHelperType.STOPWATCH:
-                    return new Stopwatch();
+                    return new Stopwatch(GetDispatcherTimer());
                 default:
                     throw new ArgumentException("Wrong TimeHelper type.");
             }
+        }
+
+        public static DispatcherTimer GetDispatcherTimer()
+        {
+            var timer = new DispatcherTimer();
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 4);
+            return timer;
         }
     }
 }
