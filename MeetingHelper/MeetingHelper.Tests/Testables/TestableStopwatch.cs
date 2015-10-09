@@ -13,9 +13,9 @@ namespace MeetingHelper.Tests.Testables
     {
         public TestableStopwatch(DispatcherTimer timer) : base(timer) { }
 
-        public TimeSpan GetCurrentTime()
+        public TimeSpan CallCalculateTimeToBeDisplayed()
         {
-            return base.CalculateTimeToBeDisplayed();
+            return base.CalculateTimeToDisplay();
         }
 
         public void SetCurrentStatus(Common.TimerStatus status)

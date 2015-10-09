@@ -20,11 +20,16 @@ namespace MeetingHelper.Tests.Testables
             base.CurrentStatus = status;
         }
 
-        protected override TimeSpan CalculateTimeToBeDisplayed() { return new TimeSpan(); }
+        protected override TimeSpan CalculateTimeToDisplay() { return new TimeSpan(); }
 
         public bool IsTimerEnabled()
         {
             return Timer.IsEnabled;
         } 
+
+        public void CallUpdateTimeToDisplay()
+        {
+            base.UpdateTimeToDisplay(null, null);
+        }
     }
 }

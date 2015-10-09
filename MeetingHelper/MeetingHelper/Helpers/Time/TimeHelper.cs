@@ -12,11 +12,11 @@ namespace MeetingHelper.Helpers.Time
     {
         public virtual Common.TimerStatus CurrentStatus { get; protected set; }
 
-        protected DispatcherTimer Timer;
-        protected DateTimeOffset TimeStarted;
-        protected DateTimeOffset TimePaused;
-        protected TimeSpan TimeToDisplay;
-        protected TimeSpan TimeSpanRunningBeforePause;
+        protected virtual DispatcherTimer Timer { get; set; }
+        protected virtual DateTimeOffset TimeStarted { get; set; }
+        protected virtual DateTimeOffset TimePaused { get; set; }
+        protected virtual TimeSpan TimeToDisplay { get; set; }
+        protected virtual TimeSpan TimeSpanRunningBeforePause { get; set; }
 
         #region Constructors
         public TimeHelper(DispatcherTimer timer)
@@ -81,11 +81,11 @@ namespace MeetingHelper.Helpers.Time
 
         protected virtual void UpdateTimeToDisplay(object sender, EventArgs args)
         {
-            TimeToDisplay = CalculateTimeToBeDisplayed();
+            TimeToDisplay = CalculateTimeToDisplay();
             OnTimeUpdated();
         }
 
-        protected abstract TimeSpan CalculateTimeToBeDisplayed();
+        protected abstract TimeSpan CalculateTimeToDisplay();
         protected virtual void OnTimeUpdated() { }
     }
 }

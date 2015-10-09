@@ -77,6 +77,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Helpers\Time\DispatcherTimer\DispatcherHelper.cs" />
+    <Compile Include="Helpers\Time\DispatcherTimer\NoArgDelegate.cs" />
+    <Compile Include="Helpers\Time\DispatcherTimer\TestsWithDispatcherTimer.cs" />
     <Compile Include="Helpers\Time\TimeHelperTests.cs" />
     <Compile Include="Helpers\Time\StopwatchTests.cs" />
     <Compile Include="Helpers\Image\ImageHelperTests.cs" />

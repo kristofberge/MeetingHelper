@@ -22,5 +22,11 @@ namespace MeetingHelper.Tests.Helpers.Time
             _stopwatch = new TestableStopwatch(timer);
         }
         #endregion
+
+        [Test]
+        public void CalculateTimeToBeDisplayed_CorrectTimeWithoutTimeBeforePaused()
+        {
+
+        }
     }
 }

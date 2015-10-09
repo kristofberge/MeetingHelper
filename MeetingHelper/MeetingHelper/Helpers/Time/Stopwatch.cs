@@ -11,7 +11,7 @@ namespace MeetingHelper.Helpers.Time
     {
         public Stopwatch(DispatcherTimer timer) : base(timer) { }
 
-        protected override TimeSpan CalculateTimeToBeDisplayed()
+        protected override TimeSpan CalculateTimeToDisplay()
         {
             return DateTimeOffset.Now - TimeStarted - TimeSpanRunningBeforePause;
         }
