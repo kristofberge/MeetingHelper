@@ -68,18 +68,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Events\OnTimeUpdatedEVentHandler.cs" />
     <Compile Include="Exceptions\NonImageFileChosenException.cs" />
     <Compile Include="Helpers\Interface\IDialogHandler.cs" />
+    <Compile Include="Shared\IShared.cs" />
     <Compile Include="Shared\RelayCommand.cs" />
     <Compile Include="Exceptions\UserCancelledDialogException.cs" />
     <Compile Include="Helpers\Image\DialogHandler.cs" />
-    <Compile Include="Shared\Common.cs" />
+    <Compile Include="Shared\Constants.cs" />
     <Compile Include="Helpers\Interface\IImageHelper.cs" />
     <Compile Include="Helpers\Image\ImageHelper.cs" />
     <Compile Include="Helpers\Time\ITimeHelper.cs" />
     <Compile Include="Helpers\Time\Stopwatch.cs" />
     <Compile Include="Helpers\Time\TimeHelper.cs" />
     <Compile Include="Shared\MyFactory.cs" />
+    <Compile Include="Shared\Shared.cs" />
     <Compile Include="ViewModel\Interface\IMainViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MeetingHelper.Shared
 {
-    public static class Common
+    public static class Constants
     {
         public enum TimerStatus
         {
@@ -20,5 +20,7 @@ namespace MeetingHelper.Shared
             STOPWATCH,
             COUNTDOWN
         }
+
+        public const string TIME_FORMAT_MASK = @"hh\:mm\:ss\.ff";
     }
 }

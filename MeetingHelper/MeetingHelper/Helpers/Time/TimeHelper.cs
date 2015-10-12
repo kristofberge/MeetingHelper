@@ -10,19 +10,23 @@ namespace MeetingHelper.Helpers.Time
 {
     public abstract class TimeHelper : ITimeHelper
     {
-        public virtual Common.TimerStatus CurrentStatus { get; protected set; }
+        public virtual Constants.TimerStatus CurrentStatus { get; protected set; }
 
         protected virtual DispatcherTimer Timer { get; set; }
         protected virtual DateTimeOffset TimeStarted { get; set; }
         protected virtual DateTimeOffset TimePaused { get; set; }
         protected virtual TimeSpan TimeToDisplay { get; set; }
-        protected virtual TimeSpan TimeSpanRunningBeforePause { get; set; }
+        protected virtual TimeSpan TimeRunningBeforePause { get; set; }
+        protected virtual IShared Shared { get; set; }
+
+        public event OnTimeUpdatedEventHandler OnTimeUpdated;
 
         #region Constructors
         public TimeHelper(DispatcherTimer timer)
         {
             Timer = timer;
             Timer.Tick += UpdateTimeToDisplay;
+            Shared = new Shared.Shared();
             SetUpTimeVariables();
         }
 
@@ -31,7 +35,7 @@ namespace MeetingHelper.Helpers.Time
             TimeToDisplay = new TimeSpan();
             TimeStarted = new DateTimeOffset();
             TimePaused = new DateTimeOffset();
-            TimeSpanRunningBeforePause = new TimeSpan();
+            TimeRunningBeforePause = new TimeSpan();
         }
         #endregion
 
@@ -40,13 +44,13 @@ namespace MeetingHelper.Helpers.Time
         {
             switch (CurrentStatus)
             {
-                case Common.TimerStatus.STOPPED:
+                case Constants.TimerStatus.STOPPED:
                     Start();
                     break;
-                case Common.TimerStatus.RUNNING:
+                case Constants.TimerStatus.RUNNING:
                     Pause();
                     break;
-                case Common.TimerStatus.PAUSED:
+                case Constants.TimerStatus.PAUSED:
                     Resume();
                     break;
                 default:
@@ -58,24 +62,24 @@ namespace MeetingHelper.Helpers.Time
         {
             TimeStarted = DateTimeOffset.Now;
             Timer.Start();
-            CurrentStatus = Common.TimerStatus.RUNNING;
+            CurrentStatus = Constants.TimerStatus.RUNNING;
         }
 
         private void Pause()
         {
             Timer.Stop();
-            CurrentStatus = Common.TimerStatus.PAUSED;
+            CurrentStatus = Constants.TimerStatus.PAUSED;
         }
 
         private void Resume()
         {
             Timer.Start();
-            CurrentStatus = Common.TimerStatus.RUNNING;
+            CurrentStatus = Constants.TimerStatus.RUNNING;
         }
 
         public void Reset()
         {
-            CurrentStatus = Common.TimerStatus.STOPPED;
+            CurrentStatus = Constants.TimerStatus.STOPPED;
         }
         #endregion
 

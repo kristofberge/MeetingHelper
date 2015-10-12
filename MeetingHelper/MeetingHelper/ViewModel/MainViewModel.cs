@@ -42,7 +42,7 @@ namespace MeetingHelper.ViewModel
         public MainViewModel()
         {
             ImageHelper = MyFactory.GetImageHelper(); ;
-            Timer = MyFactory.GetTimeHelper(Common.TimeHelperType.STOPWATCH);
+            Timer = MyFactory.GetTimeHelper(Constants.TimeHelperType.STOPWATCH);
             ImageClicked = new RelayCommand(f => { ImageClickedCmd(); }, f => true);
             TimerClicked = new RelayCommand(f => { TimerClickedCmd(); }, f => true);
         }

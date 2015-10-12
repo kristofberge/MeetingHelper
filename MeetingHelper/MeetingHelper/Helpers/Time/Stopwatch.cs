@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MeetingHelper.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace MeetingHelper.Helpers.Time
 
         protected override TimeSpan CalculateTimeToDisplay()
         {
-            return DateTimeOffset.Now - TimeStarted - TimeSpanRunningBeforePause;
+            return Shared.CurrentTime - TimeStarted - TimeRunningBeforePause;
         }
     }
 }

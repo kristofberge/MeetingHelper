@@ -4,7 +4,7 @@ namespace MeetingHelper.Helpers.Time
 {
     public interface ITimeHelper
     {
-        Common.TimerStatus CurrentStatus { get; }
+        Constants.TimerStatus CurrentStatus { get; }
         void Reset();
         void TimerClicked();
     }

@@ -15,7 +15,7 @@ namespace MeetingHelper.Tests.Testables
     {
         public TestableTimeHelper(DispatcherTimer timer) : base(timer) { }
 
-        public void SetCurrentStatus(Common.TimerStatus status)
+        public void SetCurrentStatus(Constants.TimerStatus status)
         {
             base.CurrentStatus = status;
         }
@@ -30,6 +30,11 @@ namespace MeetingHelper.Tests.Testables
         public void CallUpdateTimeToDisplay()
         {
             base.UpdateTimeToDisplay(null, null);
+        }
+
+        public void CallOnTimeUpdated()
+        {
+            base.OnTimeUpdated();
         }
     }
 }

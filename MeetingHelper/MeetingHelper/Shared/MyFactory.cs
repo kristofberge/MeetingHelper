@@ -18,11 +18,11 @@ namespace MeetingHelper.Shared
             return new ImageHelper(new DialogHandler());
         }
 
-        public static ITimeHelper GetTimeHelper(Common.TimeHelperType type)
+        public static ITimeHelper GetTimeHelper(Constants.TimeHelperType type)
         {
             switch (type)
             {
-                case Common.TimeHelperType.STOPWATCH:
+                case Constants.TimeHelperType.STOPWATCH:
                     return new Stopwatch(GetDispatcherTimer());
                 default:
                     throw new ArgumentException("Wrong TimeHelper type.");

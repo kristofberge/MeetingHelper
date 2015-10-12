@@ -18,7 +18,7 @@ namespace MeetingHelper.Tests.Testables
             return base.CalculateTimeToDisplay();
         }
 
-        public void SetCurrentStatus(Common.TimerStatus status)
+        public void SetCurrentStatus(Constants.TimerStatus status)
         {
             base.CurrentStatus = status;
         }
