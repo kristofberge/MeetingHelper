@@ -78,4 +78,5 @@ namespace MeetingHelper.Tests.Helpers.Time
             Assert.AreEqual(expected, result);
         }
         #endregion
+    }
 }

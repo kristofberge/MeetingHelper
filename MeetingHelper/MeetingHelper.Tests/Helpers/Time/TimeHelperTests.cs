@@ -10,6 +10,7 @@ using Moq;
 using Moq.Protected;
 using System.Windows.Threading;
 using System.Threading;
+using MeetingHelper.Events;
 
 namespace MeetingHelper.Tests.Helpers.Time
 {
@@ -24,7 +25,7 @@ namespace MeetingHelper.Tests.Helpers.Time
         {
             _timer = new DispatcherTimer();
             _timer.Interval = new TimeSpan(0, 0, 0, 0, 1);
-            _timeHelper = new Mock<TestableTimeHelper>(_timer);
+            _timeHelper = new Mock<TestableTimeHelper>(_timer) { CallBase = true };
         }
 
         [TestCase(Constants.TimerStatus.STOPPED, Constants.TimerStatus.RUNNING)]
@@ -89,7 +90,6 @@ namespace MeetingHelper.Tests.Helpers.Time
         public void UpdateTimeToDisplay_CallsOnTimeUpdated()
         {
             //Arrange
-            _timeHelper.CallBase = true;
             _timeHelper.Protected().Setup("OnTimeUpdated").Verifiable();
 
             //Act
@@ -97,6 +97,19 @@ namespace MeetingHelper.Tests.Helpers.Time
 
             //Assert
             _timeHelper.Protected().Verify("OnTimeUpdated", Times.AtLeastOnce());
+        }
+
+        [Test]
+        public void OnTimeUpdated_RaisedTimeUpdatedEvent()
+        {
+            //Arrange
+            _timeHelper.Raise(x => x.TimeUpdated += null, new TimeUpdatedEventArgs(new TimeSpan()));
+
+            //Act
+            _timeHelper.Object.CallOnTimeUpdated();
+
+            //Assert
+            _timeHelper.VerifyAll();
         }
 
         [Ignore] //Ignore for now, until I've implemented a solution for the Dispatcher problem: as this does not run in a WPF environment, the Dispatcher will not automatically start.
@@ -118,20 +131,5 @@ namespace MeetingHelper.Tests.Helpers.Time
             //Assert
             timeHelper.Protected().Verify("UpdateTimeToDisplay", Times.AtLeastOnce(), ItExpr.IsAny<object>(), ItExpr.IsAny<EventArgs>());
         }
-
-        [Test]
-        public void OnTimeUpdated_RaisedTimeUpdatedEvent()
-        {
-            //Arrange
-            bool eventLaunched = false;
-            _timeHelper.Raise(x => x.OnTimeUpdated += null, TimeUpdatedEventArgs.Empty);
-
-            //Act
-            _timeHelper.Object.CallOnTimeUpdated();
-
-            //Assert
-            _timeHelper.VerifyAll();
-        }
-    }
     }
 }

@@ -11,31 +11,15 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using PropertyChanged;
 
 namespace MeetingHelper.ViewModel
 {
-    /// <summary>
-    /// This class contains properties that the main View can data bind to.
-    /// <para>
-    /// Use the <strong>mvvminpc</strong> snippet to add bindable properties to this ViewModel.
-    /// </para>
-    /// <para>
-    /// You can also use Blend to data bind with the tool's support.
-    /// </para>
-    /// <para>
-    /// See http://www.galasoft.ch/mvvm
-    /// </para>
-    /// </summary>
+    [ImplementPropertyChanged]
     public class MainViewModel : ViewModelBase
     {
-        /// <summary>
-        /// Initializes a new instance of the MainViewModel class.
-        /// </summary>
-        /// 
-
-        
-        public IImageHelper ImageHelper;
-        public ITimeHelper Timer;
+        public IImageHelper ImageHelper { get; set; }
+        public ITimeHelper Timer { get; set; }
         public RelayCommand ImageClicked { get; private set; }
         public RelayCommand TimerClicked { get; private set; }
 
@@ -43,12 +27,12 @@ namespace MeetingHelper.ViewModel
         {
             ImageHelper = MyFactory.GetImageHelper(); ;
             Timer = MyFactory.GetTimeHelper(Constants.TimeHelperType.STOPWATCH);
-            ImageClicked = new RelayCommand(f => { ImageClickedCmd(); }, f => true);
-            TimerClicked = new RelayCommand(f => { TimerClickedCmd(); }, f => true);
+            ImageClicked = new RelayCommand(f => { ImageClickedCommand(); }, f => true);
+            TimerClicked = new RelayCommand(f => { TimerClickedCommand(); }, f => true);
         }
 
         private ImageSource _chosenImage;
-        public ImageSource ChosenImage
+        public virtual ImageSource ChosenImage
         {
             get
             {
@@ -59,20 +43,17 @@ namespace MeetingHelper.ViewModel
             set
             {
                 if (_chosenImage != value)
-                {
                     _chosenImage = value;
-                    RaisePropertyChanged();
-                }
             }
         }
 
-        protected virtual void ImageClickedCmd()
+        protected virtual void ImageClickedCommand()
         {
             ImageHelper.RefreshChosenImageFromUserChoice();
             ChosenImage = ImageHelper.ChosenImage;
         }
 
-        protected virtual void TimerClickedCmd()
+        protected virtual void TimerClickedCommand()
         {
             Timer.TimerClicked();
         }

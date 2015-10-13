@@ -1,4 +1,5 @@
-﻿using MeetingHelper.Shared;
+﻿using MeetingHelper.Events;
+using MeetingHelper.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +19,6 @@ namespace MeetingHelper.Helpers.Time
         protected virtual TimeSpan TimeToDisplay { get; set; }
         protected virtual TimeSpan TimeRunningBeforePause { get; set; }
         protected virtual IShared Shared { get; set; }
-
-        public event OnTimeUpdatedEventHandler OnTimeUpdated;
 
         #region Constructors
         public TimeHelper(DispatcherTimer timer)
@@ -83,6 +82,9 @@ namespace MeetingHelper.Helpers.Time
         }
         #endregion
 
+        public delegate void TimeUpdatedEventHandler (object sender, TimeUpdatedEventArgs e);
+        public virtual event TimeUpdatedEventHandler TimeUpdated;
+
         protected virtual void UpdateTimeToDisplay(object sender, EventArgs args)
         {
             TimeToDisplay = CalculateTimeToDisplay();
@@ -90,6 +92,10 @@ namespace MeetingHelper.Helpers.Time
         }
 
         protected abstract TimeSpan CalculateTimeToDisplay();
-        protected virtual void OnTimeUpdated() { }
+        protected virtual void OnTimeUpdated()
+        {
+            if (TimeUpdated != null)
+                TimeUpdated(this, new TimeUpdatedEventArgs(TimeToDisplay));
+        }
     }
 }

@@ -11,16 +11,16 @@ namespace MeetingHelper.Events
     {
         public TimeUpdatedEventArgs(TimeSpan time)
         {
-            this.Time = time;
+            Time = time;
         }
 
         public TimeSpan Time { get; private set; }
 
-        public string TimeString
+        public string TimeAsString
         {
             get
             {
-                return this.Time.ToString(Constants.TIME_FORMAT_MASK);
+                return Time.ToString(Constants.TIME_FORMAT_MASK);
             }
         }
     }
