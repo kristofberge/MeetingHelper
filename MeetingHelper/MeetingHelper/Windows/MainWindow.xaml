@@ -24,8 +24,7 @@
                 <StackPanel>
                     <RadioButton GroupName="TimerMode" Name="Stopwatch">Stopwatch</RadioButton>
                     <RadioButton GroupName="TimerMode" Name="Countdown">Countdown</RadioButton>
-                    <Label Name="Display" Grid.Column="1" Grid.Row="0" BorderThickness="1" BorderBrush="Black" FontSize="48" HorizontalAlignment="Center" Margin="0,10,0,0" Foreground="#FFF90000" FontWeight="Bold">
-                        00:00:00.00
+                    <Label Name="Display" Content="{Binding DisplayTime}" Grid.Column="1" Grid.Row="0" BorderThickness="1" BorderBrush="Black" FontSize="48" HorizontalAlignment="Center" Margin="0,10,0,0" Foreground="#FFF90000" FontWeight="Bold">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseDown">
                                 <i:InvokeCommandAction Command="{Binding TimerClicked}"/>

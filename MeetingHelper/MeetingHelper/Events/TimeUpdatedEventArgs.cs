@@ -15,13 +15,5 @@ namespace MeetingHelper.Events
         }
 
         public TimeSpan Time { get; private set; }
-
-        public string TimeAsString
-        {
-            get
-            {
-                return Time.ToString(Constants.TIME_FORMAT_MASK);
-            }
-        }
     }
 }

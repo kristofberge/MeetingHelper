@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using PropertyChanged;
+using MeetingHelper.Events;
 
 namespace MeetingHelper.ViewModel
 {
@@ -31,6 +32,7 @@ namespace MeetingHelper.ViewModel
             TimerClicked = new RelayCommand(f => { TimerClickedCommand(); }, f => true);
         }
 
+        #region Properties
         private ImageSource _chosenImage;
         public virtual ImageSource ChosenImage
         {
@@ -47,6 +49,20 @@ namespace MeetingHelper.ViewModel
             }
         }
 
+        private string _displaytime = "00:00:00.00";
+        public virtual string DisplayTime {
+            get
+            {
+                return _displaytime;
+            }
+            set
+            {
+                if(_displaytime != value)
+                    _displaytime = value;
+            }
+        }
+        #endregion
+
         protected virtual void ImageClickedCommand()
         {
             ImageHelper.RefreshChosenImageFromUserChoice();
@@ -56,6 +72,16 @@ namespace MeetingHelper.ViewModel
         protected virtual void TimerClickedCommand()
         {
             Timer.TimerClicked();
+        }
+
+        protected virtual void UpdateDisplayTime(object sender, TimeUpdatedEventArgs e)
+        {
+            DisplayTime = CreateDisplayTime(e.Time);
+        }
+
+        protected string CreateDisplayTime(TimeSpan time)
+        {
+            return time.ToString(Constants.TIME_FORMAT_MASK);
         }
     }
 }
