@@ -112,6 +112,20 @@ namespace MeetingHelper.Tests.Helpers.Time
             _timeHelper.VerifyAll();
         }
 
+        [Test]
+        public void TimerPaused_TimePausedSaved()
+        {
+            //Arrange
+            _timeHelper.Object.SetCurrentStatus(Constants.TimerStatus.RUNNING);
+            _timeHelper.Protected().SetupSet<DateTimeOffset>("TimePaused", ItExpr.IsAny<DateTimeOffset>()).Verifiable();
+
+            //Act
+            _timeHelper.Object.TimerClicked();
+
+            //Assert
+            _timeHelper.Protected().VerifySet<DateTimeOffset>("TimePaused", Times.Once(), ItExpr.IsAny<DateTimeOffset>());
+        }
+
         [Ignore] //Ignore for now, until I've implemented a solution for the Dispatcher problem: as this does not run in a WPF environment, the Dispatcher will not automatically start.
         [TestCase(Constants.TimerStatus.STOPPED)]
         [TestCase(Constants.TimerStatus.PAUSED)]

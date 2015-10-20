@@ -36,5 +36,10 @@ namespace MeetingHelper.Tests.Testables
         {
             base.OnTimeUpdated();
         }
+
+        internal DateTimeOffset GetTimePaused()
+        {
+            return base.TimePaused;
+        }
     }
 }

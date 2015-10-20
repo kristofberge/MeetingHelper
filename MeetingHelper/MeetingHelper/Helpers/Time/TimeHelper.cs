@@ -67,6 +67,7 @@ namespace MeetingHelper.Helpers.Time
         private void Pause()
         {
             Timer.Stop();
+            TimePaused = DateTimeOffset.Now;
             CurrentStatus = Constants.TimerStatus.PAUSED;
         }
 
