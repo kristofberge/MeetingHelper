@@ -28,6 +28,8 @@ namespace MeetingHelper.ViewModel
         {
             ImageHelper = MyFactory.GetImageHelper(); ;
             Timer = MyFactory.GetTimeHelper(Constants.TimeHelperType.STOPWATCH);
+            Timer.TimeUpdated += UpdateDisplayTime;
+
             ImageClicked = new RelayCommand(f => { ImageClickedCommand(); }, f => true);
             TimerClicked = new RelayCommand(f => { TimerClickedCommand(); }, f => true);
         }

@@ -37,9 +37,14 @@ namespace MeetingHelper.Tests.Testables
             base.OnTimeUpdated();
         }
 
-        internal DateTimeOffset GetTimePaused()
+        internal TimeSpan GetTimeRunningBeforePause()
         {
-            return base.TimePaused;
+            return base.TimeRunningBeforePause;
+        }
+
+        internal DateTimeOffset GetTimeStarted()
+        {
+            return TimeStarted;
         }
     }
 }

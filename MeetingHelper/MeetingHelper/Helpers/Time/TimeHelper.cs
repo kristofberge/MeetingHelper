@@ -15,7 +15,6 @@ namespace MeetingHelper.Helpers.Time
 
         protected virtual DispatcherTimer Timer { get; set; }
         protected virtual DateTimeOffset TimeStarted { get; set; }
-        protected virtual DateTimeOffset TimePaused { get; set; }
         protected virtual TimeSpan TimeToDisplay { get; set; }
         protected virtual TimeSpan TimeRunningBeforePause { get; set; }
         protected virtual IShared Shared { get; set; }
@@ -32,8 +31,6 @@ namespace MeetingHelper.Helpers.Time
         private void SetUpTimeVariables()
         {
             TimeToDisplay = new TimeSpan();
-            TimeStarted = new DateTimeOffset();
-            TimePaused = new DateTimeOffset();
             TimeRunningBeforePause = new TimeSpan();
         }
         #endregion
@@ -59,7 +56,7 @@ namespace MeetingHelper.Helpers.Time
 
         private void Start()
         {
-            TimeStarted = DateTimeOffset.Now;
+            TimeStarted = Shared.CurrentTime;
             Timer.Start();
             CurrentStatus = Constants.TimerStatus.RUNNING;
         }
@@ -67,7 +64,7 @@ namespace MeetingHelper.Helpers.Time
         private void Pause()
         {
             Timer.Stop();
-            TimePaused = DateTimeOffset.Now;
+            TimeRunningBeforePause = Shared.CurrentTime - TimeStarted;
             CurrentStatus = Constants.TimerStatus.PAUSED;
         }
 
@@ -83,8 +80,7 @@ namespace MeetingHelper.Helpers.Time
         }
         #endregion
 
-        public delegate void TimeUpdatedEventHandler (object sender, TimeUpdatedEventArgs e);
-        public virtual event TimeUpdatedEventHandler TimeUpdated;
+        public virtual event EventHandler<TimeUpdatedEventArgs> TimeUpdated;
 
         protected virtual void UpdateTimeToDisplay(object sender, EventArgs args)
         {

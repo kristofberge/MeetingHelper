@@ -17,8 +17,10 @@ namespace MeetingHelper.Tests.Helpers.Time
     [TestFixture]
     public class TimeHelperTests
     {
+        #region Setup
         private Mock<TestableTimeHelper> _timeHelper;
         private DispatcherTimer _timer;
+        private Mock<IShared> _shared;
 
         [SetUp]
         public void Setup()
@@ -26,8 +28,14 @@ namespace MeetingHelper.Tests.Helpers.Time
             _timer = new DispatcherTimer();
             _timer.Interval = new TimeSpan(0, 0, 0, 0, 1);
             _timeHelper = new Mock<TestableTimeHelper>(_timer) { CallBase = true };
-        }
 
+            _shared = new Mock<IShared>();
+            _shared.SetupGet(x => x.CurrentTime).Returns(new DateTimeOffset());
+            _timeHelper.Protected().SetupGet<IShared>("Shared").Returns(_shared.Object);
+        }
+        #endregion
+
+        #region Status
         [TestCase(Constants.TimerStatus.STOPPED, Constants.TimerStatus.RUNNING)]
         [TestCase(Constants.TimerStatus.RUNNING, Constants.TimerStatus.PAUSED)]
         [TestCase(Constants.TimerStatus.PAUSED, Constants.TimerStatus.RUNNING)]
@@ -72,7 +80,9 @@ namespace MeetingHelper.Tests.Helpers.Time
             //Assert
             Assert.AreEqual(_timeHelper.Object.IsTimerEnabled(), timerRunningAfterClick);
         }
+        #endregion
 
+        #region Time Update
         [Test]
         public void UpdateTimeToDisplay_UpdatesTimeToDisplay()
         {
@@ -103,28 +113,79 @@ namespace MeetingHelper.Tests.Helpers.Time
         public void OnTimeUpdated_RaisedTimeUpdatedEvent()
         {
             //Arrange
-            _timeHelper.Raise(x => x.TimeUpdated += null, new TimeUpdatedEventArgs(new TimeSpan()));
+            var eventRaised = false;
+            _timeHelper.Object.TimeUpdated += delegate (object sender, TimeUpdatedEventArgs e)
+            {
+                eventRaised = true;
+            };
 
             //Act
             _timeHelper.Object.CallOnTimeUpdated();
 
             //Assert
-            _timeHelper.VerifyAll();
+            Assert.IsTrue(eventRaised);
         }
 
         [Test]
-        public void TimerPaused_TimePausedSaved()
+        public void OnTimeUpdated_TimeToDisplayPassedInEvent()
         {
             //Arrange
-            _timeHelper.Object.SetCurrentStatus(Constants.TimerStatus.RUNNING);
-            _timeHelper.Protected().SetupSet<DateTimeOffset>("TimePaused", ItExpr.IsAny<DateTimeOffset>()).Verifiable();
+            TimeUpdatedEventArgs receivedEvent = null;
+            var timeToDisplay = new TimeSpan(1, 24, 17);
+            _timeHelper.Protected().SetupGet<TimeSpan>("TimeToDisplay").Returns(timeToDisplay);
+            _timeHelper.Object.TimeUpdated += delegate (object sender, TimeUpdatedEventArgs e)
+            {
+                receivedEvent = e;
+            };
+
+            //Act
+            _timeHelper.Object.CallOnTimeUpdated();
+
+            //Assert
+            Assert.AreEqual(receivedEvent.Time, timeToDisplay);
+        }
+        #endregion
+
+        #region Time keeping
+        [Test]
+        public void TimerStarted_CurentTimeSetAsTimeStarted()
+        {
+            //Arrange
+            var expected = DateTimeOffset.Now;
+            _shared.SetupGet(x => x.CurrentTime).Returns(expected);
+            _timeHelper.Object.SetCurrentStatus(Constants.TimerStatus.STOPPED);
 
             //Act
             _timeHelper.Object.TimerClicked();
 
             //Assert
-            _timeHelper.Protected().VerifySet<DateTimeOffset>("TimePaused", Times.Once(), ItExpr.IsAny<DateTimeOffset>());
+            Assert.AreEqual(expected, _timeHelper.Object.GetTimeStarted());
         }
+
+        [TestCase(0, 2, 30, 0)]
+        [TestCase(3, 10, 30, 0)]
+        [TestCase(0, 30, 10, 90)]
+        [TestCase(1, 20, 0, 60)]
+        [TestCase(30, 59, 59, 99)]
+        public void TimerPaused_SetTimeRunningBeforePaused(int hrs, int mins, int secs, int ms)
+        {
+            //Arrange
+            var timeStarted = DateTimeOffset.Now;
+            var expected = new TimeSpan(0, hrs, mins, secs, ms);
+            _timeHelper.Protected().SetupGet<DateTimeOffset>("TimeStarted").Returns(timeStarted);
+
+            var timeOnPause = timeStarted + expected;
+            _shared.SetupGet(x => x.CurrentTime).Returns(timeOnPause);
+
+            _timeHelper.Object.SetCurrentStatus(Constants.TimerStatus.RUNNING);
+
+            //Act
+            _timeHelper.Object.TimerClicked();
+
+            //Assert
+            Assert.AreEqual(_timeHelper.Object.GetTimeRunningBeforePause(), expected);
+        }
+        #endregion
 
         [Ignore] //Ignore for now, until I've implemented a solution for the Dispatcher problem: as this does not run in a WPF environment, the Dispatcher will not automatically start.
         [TestCase(Constants.TimerStatus.STOPPED)]

@@ -1,4 +1,5 @@
-﻿using MeetingHelper.Shared;
+﻿using MeetingHelper.Events;
+using MeetingHelper.Shared;
 using System;
 namespace MeetingHelper.Helpers.Time
 {
@@ -7,5 +8,7 @@ namespace MeetingHelper.Helpers.Time
         Constants.TimerStatus CurrentStatus { get; }
         void Reset();
         void TimerClicked();
+
+        event EventHandler<TimeUpdatedEventArgs> TimeUpdated;
     }
 }
